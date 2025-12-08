@@ -1,0 +1,42 @@
+<div
+  class="flex items-center justify-between px-4 py-2 bg-primary text-foreground relative"
+>
+  <!-- botón de sidebar -->
+  <button (click)="toggleSidebar.emit()" class="p-2 rounded hover:bg-secondary">
+    <lucide-icon name="Menu" class="w-6 h-6"></lucide-icon>
+  </button>
+
+  <!-- dropdown de temas -->
+  <div class="relative invisible">
+    <!-- botón que abre el menú -->
+    <button
+      (click)="toggleDropdown()"
+      class="p-2 rounded-full border-2 border-white hover:border-secondary transition-colors text-white"
+      [style.background-color]="themeColors[current]"
+      aria-label="Select Theme"
+    >
+      Select Theme
+    </button>
+
+    <ul
+      *ngIf="dropdownOpen"
+      class="absolute right-0 mt-2 bg-background border border-secondary rounded shadow-lg p-2 flex space-x-2"
+    >
+      <li *ngFor="let t of themes">
+        <button
+          (click)="selectTheme(t)"
+          class="w-6 h-6 rounded-full border-2"
+          [class.border-accent]="t === current"
+          [style.background-color]="themeColors[t]"
+          [attr.aria-label]="'Tema ' + t"
+        ></button>
+      </li>
+    </ul>
+  </div>
+  <button
+    class="px-4 py-2 rounded-lg bg-accent text-white hover:opacity-90 transition-opacity font-medium"
+    (click)="logout()"
+  >
+    Cerrar sesión
+  </button>
+</div>

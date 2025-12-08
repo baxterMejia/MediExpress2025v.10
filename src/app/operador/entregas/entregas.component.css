@@ -1,0 +1,21 @@
+
+/* Ocultar scroll horizontal en móvil */
+.overflow-x-auto {
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Mejorar el padding y la separación en tarjetas móviles */
+.card-mobile {
+	box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+	border-radius: 0.75rem;
+	margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+	table {
+		display: none;
+	}
+	.card-mobile {
+		display: block;
+	}
+}

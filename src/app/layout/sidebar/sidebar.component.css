@@ -1,0 +1,8 @@
+.active-link {
+  background-color: var(--color-accent) !important;
+  color: white !important;
+}
+
+.active-link lucide-icon {
+  color: white !important;
+}

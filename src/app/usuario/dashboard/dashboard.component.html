@@ -1,0 +1,80 @@
+<div class="p-6 max-w-7xl mx-auto">
+  <h1 class="text-3xl font-bold mb-6" style="color: var(--color-foreground)">Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Solicitudes Activas -->
+    <div class="bg-white rounded-lg shadow-md p-6 border" style="border-color: var(--color-secondary)">
+      <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: var(--color-primary)">
+        <span>📋</span>
+        Solicitudes Activas
+      </h2>
+      <div class="space-y-3">
+        <div *ngFor="let solicitud of solicitudesActivas" 
+             class="p-4 rounded-lg" 
+             style="background-color: var(--color-bg)">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-semibold" style="color: var(--color-foreground)">{{ solicitud.medicamento }}</h3>
+            <span class="px-2 py-1 rounded text-xs font-medium"
+                  [style.background-color]="solicitud.estado === 'Aprobada' ? 'var(--color-accent)' : 'var(--color-secondary)'"
+                  style="color: white">
+              {{ solicitud.estado }}
+            </span>
+          </div>
+          <p class="text-sm" style="color: var(--color-foreground); opacity: 0.7">
+            Cantidad: {{ solicitud.cantidad }} unidades
+          </p>
+          <p class="text-xs mt-1" style="color: var(--color-foreground); opacity: 0.5">
+            Solicitado: {{ solicitud.fechaSolicitud }}
+          </p>
+        </div>
+        <div *ngIf="solicitudesActivas.length === 0" class="text-center py-4" style="color: var(--color-foreground); opacity: 0.6">
+          No hay solicitudes activas
+        </div>
+      </div>
+    </div>
+
+    <!-- Próximas Entregas -->
+    <div class="bg-white rounded-lg shadow-md p-6 border" style="border-color: var(--color-secondary)">
+      <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: var(--color-primary)">
+        <span>🚚</span>
+        Próximas Entregas
+      </h2>
+      <div class="space-y-3">
+        <div *ngFor="let entrega of proximasEntregas" 
+             class="p-4 rounded-lg" 
+             style="background-color: var(--color-bg)">
+          <h3 class="font-semibold mb-2" style="color: var(--color-foreground)">{{ entrega.medicamento }}</h3>
+          <div class="space-y-1">
+            <p class="text-sm flex items-center gap-2" style="color: var(--color-foreground); opacity: 0.7">
+              <span>📅</span>
+              {{ entrega.fecha }} - {{ entrega.hora }}
+            </p>
+            <p class="text-sm flex items-center gap-2" style="color: var(--color-foreground); opacity: 0.7">
+              <span>📍</span>
+              {{ entrega.direccion }}
+            </p>
+          </div>
+        </div>
+        <div *ngIf="proximasEntregas.length === 0" class="text-center py-4" style="color: var(--color-foreground); opacity: 0.6">
+          No hay entregas programadas
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estadísticas Rápidas -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+    <div class="p-4 rounded-lg text-center" style="background-color: var(--color-accent)">
+      <p class="text-3xl font-bold text-white">{{ solicitudesActivas.length }}</p>
+      <p class="text-sm text-white opacity-90">Solicitudes Activas</p>
+    </div>
+    <div class="p-4 rounded-lg text-center" style="background-color: var(--color-primary)">
+      <p class="text-3xl font-bold text-white">{{ proximasEntregas.length }}</p>
+      <p class="text-sm text-white opacity-90">Entregas Pendientes</p>
+    </div>
+    <div class="p-4 rounded-lg text-center" style="background-color: var(--color-secondary)">
+      <p class="text-3xl font-bold" style="color: var(--color-foreground)">12</p>
+      <p class="text-sm" style="color: var(--color-foreground); opacity: 0.8">Entregas Completadas</p>
+    </div>
+  </div>
+</div>

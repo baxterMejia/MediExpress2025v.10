@@ -1,0 +1,80 @@
+<div class="p-6 max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h1 class="text-3xl font-bold" style="color: var(--color-foreground)">Notificaciones</h1>
+      <p class="text-sm mt-1" style="color: var(--color-foreground); opacity: 0.7">
+        Tienes {{ notificacionesNoLeidas }} notificación(es) sin leer
+      </p>
+    </div>
+    <button 
+      *ngIf="notificacionesNoLeidas > 0"
+      (click)="marcarTodasLeidas()"
+      class="px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90"
+      style="background-color: var(--color-accent); color: white">
+      Marcar todas como leídas
+    </button>
+  </div>
+
+  <div class="space-y-3">
+    <div *ngFor="let notif of notificaciones" 
+         class="bg-white rounded-lg shadow-md p-4 border transition-all hover:shadow-lg"
+         [class.opacity-60]="notif.leida"
+         style="border-color: var(--color-secondary)"
+         [style.border-left-width]="!notif.leida ? '4px' : '1px'"
+         [style.border-left-color]="!notif.leida ? 'var(--color-accent)' : 'var(--color-secondary)'">
+      
+      <div class="flex items-start gap-3">
+        <!-- Icono -->
+        <div class="text-3xl flex-shrink-0">{{ getIcono(notif.tipo) }}</div>
+        
+        <!-- Contenido -->
+        <div class="flex-1 min-w-0">
+          <div class="flex justify-between items-start gap-2 mb-1">
+            <h3 class="font-semibold" style="color: var(--color-foreground)">
+              {{ notif.titulo }}
+              <span *ngIf="!notif.leida" 
+                    class="ml-2 inline-block w-2 h-2 rounded-full" 
+                    style="background-color: var(--color-accent)"></span>
+            </h3>
+            <button 
+              (click)="eliminarNotificacion(notif.id)"
+              class="text-xl hover:opacity-70 flex-shrink-0"
+              style="color: var(--color-foreground)"
+              title="Eliminar notificación">
+              ×
+            </button>
+          </div>
+          
+          <p class="text-sm mb-2" style="color: var(--color-foreground); opacity: 0.8">
+            {{ notif.mensaje }}
+          </p>
+          
+          <div class="flex justify-between items-center">
+            <p class="text-xs" style="color: var(--color-foreground); opacity: 0.5">
+              {{ notif.fecha }}
+            </p>
+            <button 
+              *ngIf="!notif.leida"
+              (click)="marcarComoLeida(notif)"
+              class="text-xs px-3 py-1 rounded hover:opacity-80"
+              style="background-color: var(--color-primary); color: white">
+              Marcar como leída
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="notificaciones.length === 0" 
+         class="bg-white rounded-lg shadow-md p-8 text-center border"
+         style="border-color: var(--color-secondary)">
+      <div class="text-6xl mb-3">📭</div>
+      <p class="text-lg font-medium" style="color: var(--color-foreground)">
+        No tienes notificaciones
+      </p>
+      <p class="text-sm mt-1" style="color: var(--color-foreground); opacity: 0.6">
+        Aquí aparecerán tus notificaciones importantes
+      </p>
+    </div>
+  </div>
+</div>

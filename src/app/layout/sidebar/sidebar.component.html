@@ -1,0 +1,20 @@
+<div
+  [@slideInOut]
+  *ngIf="open"
+  class="overflow-hidden bg-background text-foreground"
+  style="width: 220px;"
+>
+  <ul class="space-y-2 p-3">
+    <li *ngFor="let item of menuItems">
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="active-link"
+        class="flex items-center gap-3 p-3 rounded-lg hover:bg-secondary transition-colors"
+        style="color: var(--color-foreground)"
+      >
+        <lucide-icon [name]="item.icon" class="w-5 h-5"></lucide-icon>
+        <span class="text-sm font-medium">{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+</div>

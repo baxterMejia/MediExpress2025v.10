@@ -1,0 +1,129 @@
+<div
+  class="min-h-screen flex items-center justify-center bg-background text-foreground font-base px-4"
+>
+  <div class="bg-white rounded-2xl shadow-lg w-full max-w-md p-8">
+    <h2 class="text-2xl font-bold text-center mb-6">Iniciar sesión</h2>
+
+    <form (ngSubmit)="onLogin()" class="space-y-4">
+      <div>
+        <label class="block mb-1 text-sm">Usuario</label>
+        <input
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          placeholder="Usuario"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
+
+      <div>
+        <label class="block mb-1 text-sm">Contraseña</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Contraseña"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-primary hover:bg-opacity-90 text-white font-semibold py-2 px-4 rounded-md transition"
+      >
+        Iniciar sesión
+      </button>
+      <app-loading-spinner *ngIf="isLoading" class="mt-4"></app-loading-spinner>
+      <p *ngIf="error" class="text-red-600 text-sm text-center mt-2">
+        {{ error }}
+      </p>
+    </form>
+
+    <div class="mt-6 text-xs text-center text-gray-500">
+      <strong>Modo demo:</strong> Puedes ingresar con:<br />
+      <span class="block">Usuario: <b>usuario</b> / Clave: <b>1234</b></span>
+      <span class="block">Usuario: <b>operador</b> / Clave: <b>1234</b></span>
+      <!-- <span class="block">Usuario: <b>eps</b> / Clave: <b>1234</b></span> -->
+    </div>
+
+    <p class="text-sm text-center mt-6">
+      ¿No tienes cuenta?
+      <button (click)="openRegisterModal()" class="text-primary underline">
+        Regístrate
+      </button>
+    </p>
+  </div>
+
+  <!-- MODAL REGISTRO -->
+  <div
+    *ngIf="showRegister"
+    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white rounded-xl w-full max-w-lg p-6 relative shadow-lg">
+      <button
+        (click)="closeRegisterModal()"
+        class="absolute top-3 right-4 text-gray-500 text-xl"
+      >
+        &times;
+      </button>
+
+      <h3 class="text-xl font-bold mb-4 text-center">Registro de usuario</h3>
+
+      <form (ngSubmit)="onRegister()" class="space-y-4">
+        <div>
+          <label class="block mb-1 text-sm">Usuario</label>
+          <input
+            type="text"
+            [(ngModel)]="registerData.username"
+            name="registerUsername"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+
+        <div>
+          <label class="block mb-1 text-sm">Correo electrónico</label>
+          <input
+            type="email"
+            [(ngModel)]="registerData.email"
+            name="registerEmail"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+
+        <div>
+          <label class="block mb-1 text-sm">Contraseña</label>
+          <input
+            type="password"
+            [(ngModel)]="registerData.password"
+            name="registerPassword"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-primary hover:bg-opacity-90 text-white font-semibold py-2 px-4 rounded-md transition"
+        >
+          Registrarse
+        </button>
+        <app-loading-spinner
+          *ngIf="isLoading"
+          class="mt-4"
+        ></app-loading-spinner>
+
+        <p *ngIf="registerError" class="text-red-600 text-sm text-center mt-2">
+          {{ registerError }}
+        </p>
+        <p
+          *ngIf="registerSuccess"
+          class="text-green-600 text-sm text-center mt-2"
+        >
+          Registro exitoso 🎉
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

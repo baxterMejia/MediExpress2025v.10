@@ -1,0 +1,127 @@
+<div class="p-6 max-w-3xl mx-auto">
+  <h1 class="text-3xl font-bold mb-6" style="color: var(--color-foreground)">Nueva Solicitud de Medicamento</h1>
+
+  <div class="bg-white rounded-lg shadow-md p-6 border" style="border-color: var(--color-secondary)">
+    <form (ngSubmit)="enviarSolicitud()" #solicitudForm="ngForm">
+      <!-- Medicamento -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2" style="color: var(--color-foreground)">
+          Medicamento *
+        </label>
+        <select 
+          [(ngModel)]="solicitud.medicamento" 
+          name="medicamento"
+          required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+          style="border-color: var(--color-secondary); background-color: var(--color-bg)"
+          [style.focus:ring-color]="'var(--color-accent)'">
+          <option value="">Seleccione un medicamento</option>
+          <option *ngFor="let med of medicamentosDisponibles" [value]="med">{{ med }}</option>
+        </select>
+      </div>
+
+      <!-- Cantidad -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2" style="color: var(--color-foreground)">
+          Cantidad (unidades) *
+        </label>
+        <input 
+          type="number" 
+          [(ngModel)]="solicitud.cantidad" 
+          name="cantidad"
+          required
+          min="1"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+          style="border-color: var(--color-secondary); background-color: var(--color-bg)"
+          [style.focus:ring-color]="'var(--color-accent)'">
+      </div>
+
+      <!-- Frecuencia -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2" style="color: var(--color-foreground)">
+          Frecuencia de consumo *
+        </label>
+        <select 
+          [(ngModel)]="solicitud.frecuencia" 
+          name="frecuencia"
+          required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+          style="border-color: var(--color-secondary); background-color: var(--color-bg)"
+          [style.focus:ring-color]="'var(--color-accent)'">
+          <option value="cada6h">Cada 6 horas</option>
+          <option value="cada8h">Cada 8 horas</option>
+          <option value="cada12h">Cada 12 horas</option>
+          <option value="diaria">Diaria</option>
+          <option value="semanal">Semanal</option>
+        </select>
+      </div>
+
+      <!-- Duración del tratamiento -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2" style="color: var(--color-foreground)">
+          Duración del tratamiento (días) *
+        </label>
+        <input 
+          type="number" 
+          [(ngModel)]="solicitud.duracion" 
+          name="duracion"
+          required
+          min="1"
+          max="90"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+          style="border-color: var(--color-secondary); background-color: var(--color-bg)"
+          [style.focus:ring-color]="'var(--color-accent)'">
+      </div>
+
+      <!-- Observaciones -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium mb-2" style="color: var(--color-foreground)">
+          Observaciones (opcional)
+        </label>
+        <textarea 
+          [(ngModel)]="solicitud.observaciones" 
+          name="observaciones"
+          rows="4"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+          style="border-color: var(--color-secondary); background-color: var(--color-bg)"
+          [style.focus:ring-color]="'var(--color-accent)'"
+          placeholder="Indique cualquier información adicional relevante..."></textarea>
+      </div>
+
+      <!-- Mensaje de éxito -->
+      <div *ngIf="exitoso" class="mb-4 p-4 rounded-lg flex items-center gap-2" style="background-color: var(--color-accent); color: white">
+        <span>✓</span>
+        <span>Solicitud enviada exitosamente</span>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex gap-3">
+        <button 
+          type="submit"
+          [disabled]="!solicitudForm.valid || enviando"
+          class="flex-1 px-4 py-2 rounded-lg font-medium transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+          style="background-color: var(--color-accent); color: white">
+          {{ enviando ? 'Enviando...' : 'Enviar Solicitud' }}
+        </button>
+        <button 
+          type="button"
+          (click)="resetForm()"
+          [disabled]="enviando"
+          class="px-4 py-2 rounded-lg font-medium transition-opacity"
+          style="background-color: var(--color-secondary); color: var(--color-foreground)">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Información adicional -->
+  <div class="mt-6 p-4 rounded-lg" style="background-color: var(--color-bg)">
+    <h3 class="font-semibold mb-2" style="color: var(--color-primary)">ℹ️ Información importante</h3>
+    <ul class="text-sm space-y-1" style="color: var(--color-foreground); opacity: 0.8">
+      <li>• Las solicitudes son revisadas en un plazo de 24-48 horas</li>
+      <li>• Recibirás una notificación cuando tu solicitud sea aprobada</li>
+      <li>• La entrega se programará según tu ubicación y disponibilidad</li>
+    </ul>
+  </div>
+</div>

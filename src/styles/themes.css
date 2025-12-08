@@ -1,0 +1,45 @@
+:root {
+  /* Tema Luxury (default) */
+  --color-primary:    #2C3E50;
+  --color-secondary:  #BDC3C7;
+  --color-accent:     #D4AF37;
+  --color-bg:         #F5F5F5;
+  --color-foreground: #2C3E50;
+  --font-family-base: 'Inter', sans-serif;
+}
+
+.theme-dark {
+  --color-primary:    #1A1A1D;
+  --color-secondary:  #58585A;
+  --color-accent:     #C0C0C0;
+  --color-bg:         #0F0F10;
+  --color-foreground: #E0E0E0;
+  --font-family-base: 'JetBrains Mono', monospace;
+}
+
+.theme-green {
+  --color-primary:    #10B981;
+  --color-secondary:  #D1FAE5;
+  --color-accent:     #34D399;
+  --color-bg:         #FFFFFF;
+  --color-foreground: #06d198;
+  --font-family-base: 'Inter', sans-serif;
+}
+
+.theme-red {
+  --color-primary:    #4B0E13;
+  --color-secondary:  #AA0F18;
+  --color-accent:     #C9A66B;
+  --color-bg:         #FDF6F4;
+  --color-foreground: #2E1217;
+  --font-family-base: 'Playfair Display', serif;
+}
+
+.theme-slate {
+  --color-primary:    #2F4F4F;
+  --color-secondary:  #708090;
+  --color-accent:     #A9A9A9;
+  --color-bg:         #ECECEC;
+  --color-foreground: #1F2A30;
+  --font-family-base: 'SF Pro Display', sans-serif;
+}
