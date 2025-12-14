@@ -21,6 +21,7 @@ export class InventarioComponent {
   searchText = '';
   editandoId: number | null = null;
   cantidadEditada: number = 0;
+  confirmationMessage: string | null = null;
 
   medicamentos: Medicamento[] = [
     { id: 1, nombre: 'Ibuprofeno', presentacion: '400mg x30', cantidad: 120, minimo: 30 },
@@ -77,5 +78,11 @@ export class InventarioComponent {
     this.medicamentos.push(nuevo);
     this.nuevoMedicamento = { id: 0, nombre: '', presentacion: '', cantidad: 0, minimo: 10 };
     this.mostrarFormulario = false;
+    this.showConfirmation('Medicamento agregado al inventario');
+  }
+
+  showConfirmation(message: string, duration = 3000) {
+    this.confirmationMessage = message;
+    setTimeout(() => this.confirmationMessage = null, duration);
   }
 }

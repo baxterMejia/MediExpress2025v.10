@@ -59,7 +59,7 @@ export class SidebarComponent implements OnInit {
       case 'operador':
         return [
           { label: 'Dashboard', icon: 'Home', route: '/dashboard' },
-          { label: 'Entregas', icon: 'Package', route: '/entregas' },
+          { label: 'Entregas', icon: 'Truck', route: '/entregas' },
           { label: 'Inventario', icon: 'Package', route: '/inventario' },
           { label: 'Mi Perfil', icon: 'User', route: '/mi-perfil' }
         ];

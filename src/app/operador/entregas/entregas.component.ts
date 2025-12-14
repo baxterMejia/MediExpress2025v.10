@@ -104,6 +104,10 @@ export class EntregasComponent implements AfterViewInit {
     entrega.estado = 'completada';
   }
 
+  marcarPendiente(entrega: Entrega) {
+    entrega.estado = 'pendiente';
+  }
+
   // Calcular distancia usando fórmula de Haversine
   calcularDistancia(lat1: number, lng1: number, lat2: number, lng2: number): number {
     const R = 6371; // Radio de la Tierra en km
@@ -128,7 +132,7 @@ export class EntregasComponent implements AfterViewInit {
     // Detectar si es vista móvil o desktop
     const isMobile = window.innerWidth < 640;
     const mapId = isMobile ? `map-mobile-${entregaId}` : `map-${entregaId}`;
-    
+
     const mapElement = document.getElementById(mapId);
     if (!mapElement) return;
 
@@ -178,10 +182,10 @@ export class EntregasComponent implements AfterViewInit {
       const route = await this.getOSRMRouteWithCache(this.bodegaLat, this.bodegaLng, entrega.lat, entrega.lng);
       if (route && route.coordinates) {
         // Dibujar la ruta real siguiendo las calles
-        L.polyline(route.coordinates, { 
-          color: '#3B82F6', 
-          weight: 4, 
-          opacity: 0.7 
+        L.polyline(route.coordinates, {
+          color: '#3B82F6',
+          weight: 4,
+          opacity: 0.7
         }).addTo(map);
 
         // Ajustar vista para mostrar toda la ruta
@@ -218,7 +222,7 @@ export class EntregasComponent implements AfterViewInit {
   private async getOSRMRouteWithCache(lat1: number, lng1: number, lat2: number, lng2: number): Promise<{ coordinates: L.LatLngExpression[], distance: number, duration: number } | null> {
     // Crear clave única para esta ruta
     const cacheKey = `${lat1.toFixed(4)},${lng1.toFixed(4)}-${lat2.toFixed(4)},${lng2.toFixed(4)}`;
-    
+
     // Verificar si ya existe en cache
     if (this.routeCache.has(cacheKey)) {
       console.log('Ruta obtenida desde cache:', cacheKey);
@@ -228,26 +232,26 @@ export class EntregasComponent implements AfterViewInit {
     // Si no está en cache, obtener de OSRM
     console.log('Obteniendo ruta desde OSRM:', cacheKey);
     const route = await this.getOSRMRoute(lat1, lng1, lat2, lng2);
-    
+
     // Guardar en cache si fue exitoso
     if (route) {
       this.routeCache.set(cacheKey, route);
     }
-    
+
     return route;
   }
 
   private async getOSRMRoute(lat1: number, lng1: number, lat2: number, lng2: number): Promise<{ coordinates: L.LatLngExpression[], distance: number, duration: number } | null> {
     const url = `https://router.project-osrm.org/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
-    
+
     try {
       const response = await fetch(url);
       const data = await response.json();
-      
+
       if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
         const route = data.routes[0];
         const coordinates = route.geometry.coordinates.map((coord: number[]) => [coord[1], coord[0]] as L.LatLngExpression);
-        
+
         return {
           coordinates,
           distance: route.distance / 1000, // metros a km
